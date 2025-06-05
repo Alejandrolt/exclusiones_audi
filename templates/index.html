@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clasificador de Exclusiones</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Clasificador de Exclusiones</h1>
+    <div class="contenedor">
+      <form action="/procesar" method="post" enctype="multipart/form-data">
+        <input
+          type="file"
+          name="excel"
+          id="fileInput"
+          accept=".xlsx"
+          required
+          hidden
+        />
+
+        <label for="fileInput" class="custom-file-label">Elegir archivo</label>
+        <span id="file-name" class="file-name"
+          >Ningún archivo seleccionado</span
+        >
+
+        <button type="submit">Procesar Excel</button>
+      </form>
+    </div>
+
+    <div
+      id="spinner"
+      style="display: none; margin-top: 20px; text-align: center"
+    >
+      <img
+        src="{{ url_for('static', filename='spinner.gif') }}"
+        alt="Cargando..."
+        width="80"
+      />
+      <p>Procesando archivo, por favor espera...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
