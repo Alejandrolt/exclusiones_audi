@@ -1,7 +1,5 @@
-
-
-import tkinter as tk
-from tkinter import filedialog, messagebox, scrolledtext
+#import tkinter as tk
+#from tkinter import filedialog, messagebox, scrolledtext
 import pandas as pd
 
 # Contexto inicial con pandas
@@ -16,7 +14,7 @@ def clasificar_exclusiones(row):
         exclusiones.append("PQR")
 
     if not exclusiones and row.get("Tutela") == "S":
-        exclusiones.append("Tutela")    
+        exclusiones.append("Tutela")
 
     nombre_subcuenta = str(row.get("Nombre Subcuenta", "")).lower()
     if not exclusiones and "fundaciones" in nombre_subcuenta:
@@ -44,7 +42,7 @@ def clasificar_exclusiones(row):
                     exclusiones.append("Unidad Negocio IPS")
         except (ValueError, TypeError):
             pass
-    
+
     if not exclusiones:
         nivel_iii = str(row.get("Nivel III", "")).lower()
         municipio = str(row.get("Municipio", "")).strip().lower()
@@ -52,7 +50,7 @@ def clasificar_exclusiones(row):
 
         if "pañales" in nivel_iii and municipio in municipios_excluir:
             exclusiones.append("Exclusion Pañales")
-            
+
     valor_encomienda = row.get("S Id Encomienda")
     if not exclusiones and pd.notna(valor_encomienda) and str(valor_encomienda).strip() != "":
         exclusiones.append("Domi S gestionado")
@@ -68,6 +66,4 @@ def clasificar_exclusiones(row):
                 exclusiones.append("Usuario Contactado")
         except ValueError:
             pass
-	
     return ", ".join(exclusiones)
-
