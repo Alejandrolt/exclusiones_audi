@@ -66,4 +66,17 @@ def clasificar_exclusiones(row):
                 exclusiones.append("Usuario Contactado")
         except ValueError:
             pass
+
+    if not exclusiones:
+        dias_pendientes = row.get("Dias Pendientes Habiles")
+        valor_copago = row.get("G Copago")
+
+        if pd.notna(dias_pendientes) and float(dias_pendientes) <= 29:
+            if (
+                pd.notna(valor_copago)
+                and str(valor_copago).strip() != ""
+                and float(valor_copago) != 0
+            ):
+                exclusiones.append("Valor Copago")
+                
     return ", ".join(exclusiones)
